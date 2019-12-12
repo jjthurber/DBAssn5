@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, url_for, render_template
 import sqlite3
+from urlparse import urlparse
 from sqlite3 import Error
 
 #Sources used:
@@ -32,7 +33,7 @@ def get_flower_page(f):
     
     if(request.method == 'POST'):
         update_db(connection, "UPDATE flowers SET genus=?, species=? WHERE comname=?", (request.form.get('genus'), request.form.get('species'), f,))
-        return url_for(request.path)
+        return redirect(request.url)
     return render_template('flower.html', f=f, genus=latin_name[0][0], species=latin_name[0][1], sightings=sightings)
 
 
@@ -50,43 +51,6 @@ def update_db(connection, update, vars):
     connection.commit()
 
 # def insert_db(connection, insert):
-    
-
-def all_flowers_by_comname(connection):
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM flowers ORDER BY comname")
-    
-    return cursor.fetchall()
-
-def select_flower_by_comname(connection, comname):
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM flowers WHERE comname=? ORDER BY comname", (comname,))
-    
-    return cursor.fetchall()
-
-def all_sightings_by_flower(connection):
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM sightings ORDER BY name")
-    
-    return cursor.fetchall()
-
-def select_sighting_by_flower(connection, flower):
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM sightings WHERE name=? ORDER BY sighted", (flower,))
-    
-    return cursor.fetchall()
-
-# def main():
-    
-#     connection = new_connection(database)
-
-#     app.run()
-
-#     print("Full list of sightings:")
-#     all_sightings_by_flower(connection)
-
-#     print("Selecting sightings for only 'Butter and eggs'")
-#     select_sighting_by_flower(connection, "Butter and eggs")
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
