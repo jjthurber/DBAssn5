@@ -1,6 +1,7 @@
 from flask import Flask, request, redirect, url_for, render_template
 import sqlite3
 from sqlite3 import Error
+from flask_bootstrap import Bootstrap
 
 #Sources used:
 #https://www.sqlitetutorial.net/sqlite-python/sqlite-python-select/
@@ -8,6 +9,7 @@ from sqlite3 import Error
 _db_name_ = "flowers2019.db"
 
 app = Flask(__name__)
+bootstrap = Bootstrap(app)
 
 def new_connection(db_name):
     connection = None
