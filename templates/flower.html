@@ -1,0 +1,15 @@
+<a>{{f}}</a>
+<ul>
+    {% for s in sightings %}
+    <li>Sighted by {{s[1][1]}} on {{s[1][3]}} at {{s[1][2]}}</li>
+    {% endfor %}
+</ul>
+<br>
+<a>Update Flower</a>
+<form>
+    Genus:<br>
+    <input type="text" name="genus"><br>
+    Species:<br>
+    <input type="text" name="species"><br><br>
+    <input type="submit" value="Submit">
+</form>

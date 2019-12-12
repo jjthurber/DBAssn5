@@ -21,16 +21,22 @@ def new_connection(db_name):
 @app.route('/', methods = ['GET', 'POST'])
 def home_page():
     connection = new_connection(_db_name_)
-    flowers = enumerate(query_db(connection, "SELECT * FROM flowers ORDER BY comname"))
+    flowers = enumerate(query_db(connection, "SELECT * FROM flowers ORDER BY comname", None))
     return render_template('home.html', flowers=flowers)
 
 @app.route('/flower/<f>', methods = ['GET', 'POST']) #Work in progress
-def flower_page():
-    return "Hello"
+def flower_page(f):
+    connection = new_connection(_db_name_)
+    sightings = enumerate(query_db(connection, "SELECT * FROM sightings WHERE name=? ORDER BY datetime(sighted) DESC LIMIT 10", (f,)))
+    print(f)
+    return render_template('flower.html', f=f, sightings=sightings)
 
-def query_db(connection, query):
+def query_db(connection, query, var):
     cursor = connection.cursor()
-    cursor.execute(query)
+    if var == None:
+        cursor.execute(query)
+    else:
+        cursor.execute(query, var)
     return cursor.fetchall()
 
 # def update_db(connection, update):
