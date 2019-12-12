@@ -25,11 +25,16 @@ def home_page():
     return render_template('home.html', flowers=flowers)
 
 @app.route('/flower/<f>', methods = ['GET', 'POST']) #Work in progress
-def flower_page(f):
+def get_flower_page(f):
     connection = new_connection(_db_name_)
     sightings = enumerate(query_db(connection, "SELECT * FROM sightings WHERE name=? ORDER BY datetime(sighted) DESC LIMIT 10", (f,)))
-    print(f)
-    return render_template('flower.html', f=f, sightings=sightings)
+    latin_name = query_db(connection, "SELECT genus, species FROM flowers WHERE comname=?", (f,))
+    
+    if(request.method == 'POST'):
+        update_db(connection, "UPDATE flowers SET genus=?, species=? WHERE comname=?", (request.form.get('genus'), request.form.get('species'), f,))
+        return url_for(request.path)
+    return render_template('flower.html', f=f, genus=latin_name[0][0], species=latin_name[0][1], sightings=sightings)
+
 
 def query_db(connection, query, var):
     cursor = connection.cursor()
@@ -39,8 +44,10 @@ def query_db(connection, query, var):
         cursor.execute(query, var)
     return cursor.fetchall()
 
-# def update_db(connection, update):
-
+def update_db(connection, update, vars):
+    cursor = connection.cursor()
+    cursor.execute(update, vars)
+    connection.commit()
 
 # def insert_db(connection, insert):
     
