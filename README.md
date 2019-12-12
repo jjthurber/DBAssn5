@@ -3,10 +3,10 @@
 ### Matthew Baumaister & John Thurber
 
 #### Things needed
-Linux Terminal
-Python 2.7
-Flask
-Sqlite3 (integrated into python)
+1. Linux Terminal
+2. Python 2.7
+3. Flask
+4. Sqlite3 (integrated into python)
 
 #### Commands to run
 python main.py
