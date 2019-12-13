@@ -82,7 +82,7 @@ def insert_db(connection, insert, vars):
     
     print("New sighting of " + vars[0] + " by " + vars[1] + " at " + vars[2] + " on " + datetime.strftime(vars[3], '%Y-%m-%d') + ".")
     cursor.execute(insert, vars)
-    
+    connection.commit()
     return cursor.lastrowid
 
 if __name__ == '__main__':
