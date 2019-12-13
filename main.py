@@ -51,13 +51,29 @@ def get_flower_page(f):
             update_db(connection, "UPDATE flowers SET genus=?, species=? WHERE comname=?", (genus, species, f,))
         
         elif('insert' in request.form):
-            sighted = datetime.strptime(request.form.get('sighted'), '%Y-%m-%d')
-            insert_db(connection, "INSERT INTO sightings(name, person, location, sighted) VALUES(?,?,?,?)", (f, request.form.get('person'), request.form.get('location'), sighted.date(),))
+            person = request.form.get('person')
+            location = request.form.get('location')
+            sighted = request.form.get('sighted')
+            if(person == '' and location == '' and sighted == ''):
+                return redirect(request.url)
+            if(person == ''):
+                person = "Unknown Person"
+            if(location == ''):
+                location = "Unknown Location"
+            if(sighted == ''):
+                date = datetime(1970, 1, 1)
+            elif(sighted != ''):
+                date = datetime.strptime(request.form.get('sighted'), '%Y-%m-%d')
+
+            insert_db(connection, "INSERT INTO sightings(name, person, location, sighted) VALUES(?,?,?,?)", (f, person, location, date.date(),))
         
         return redirect(request.url)
     
     return render_template('flower.html', f=f, genus=latin_name[0][0], species=latin_name[0][1], sightings=sightings)
 
+@app.route('/flower/')
+def reroute():
+    return redirect('/')
 
 def query_db(connection, query, var):
     cursor = connection.cursor()
