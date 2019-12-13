@@ -2,10 +2,13 @@
 <h1 style="text-align:center; font-size:100px; background-color:rgba(80, 72, 72, 0.6); color: whitesmoke; width:800px; margin: 0 auto;">
 <a>{{f}}</a>
 </h1>
+<h2 style="text-align:center; font-size:30px; background-color:rgba(80, 72, 72, 0.6); color: whitesmoke; width:800px; margin: 0 auto; padding-bottom:20px">
+<i>Genus: {{genus}} <br>
+Species: {{species}}<br>
+</i>
+</h2>
 <br><br>
 
-Genus: {{genus}}<br>
-Species: {{species}}<br>
     {% for s in sightings %}
     <div class="container" style="font-size: 20px; padding:5px; width:700px; margin: 0 auto; font-family:Arial, Helvetica, sans-serif; color: whitesmoke; background-color:rgba(80, 72, 72, 0.6); text-align:center">
     <i>Sighted by {{s[1][1]}} on {{s[1][3]}} at {{s[1][2]}}</i>
