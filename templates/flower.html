@@ -1,4 +1,4 @@
-<div class="container" style="background-image:url(http://getwallpapers.com/wallpaper/full/c/3/1/193891.jpg); background-repeat: no-repeat; width:100%; height:100%; padding-top:200px">
+<div class="fluid-container" style="background-image:url(http://getwallpapers.com/wallpaper/full/c/3/1/193891.jpg); background-repeat: no-repeat; width:100%; height:auto; padding-top:100px;background-attachment: fixed;">
 <h1 style="text-align:center; font-size:100px; background-color:rgba(80, 72, 72, 0.6); color: whitesmoke; width:800px; margin: 0 auto;">
 <a>{{f}}</a>
 </h1>
@@ -14,7 +14,7 @@ Species: {{species}}<br>
     <i>Sighted by {{s[1][1]}} on {{s[1][3]}} at {{s[1][2]}}</i>
     </div>
     {% endfor %}
-    <div class="container" style="padding:50px"></div>
+<div class="container" style="padding:20px"></div>
     <h1 style="text-align:center; font-size:50px; background-color:rgba(80, 72, 72, 0.6); color: whitesmoke; width:400px; margin: 0 auto;">
         <a>Update Flower</a>
         </h1>
@@ -26,8 +26,10 @@ Species: {{species}}<br>
     <input type="submit" name="update" value="Submit">
 </form>
 <br>
+<h1 style="text-align:center; font-size:50px; background-color:rgba(80, 72, 72, 0.6); color: whitesmoke; width:400px; margin: 0 auto;">
 <a>Add Sighting</a>
-<form method='POST'>
+</h1>
+<form method='POST' style="font-size: 20px; padding:5px; width: 400px; margin: 0 auto; font-family:Arial, Helvetica, sans-serif; color: whitesmoke; background-color:rgba(80, 72, 72, 0.6); text-align:center; padding-top: 20px">
     <input type="hidden" name="flower" value="insert">
     Person:<br>
     <input type="text" name="person"><br>
